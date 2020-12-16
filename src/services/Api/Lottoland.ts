@@ -4,23 +4,22 @@ class Lottoland {
     private path: string;
 
     public constructor() {
-        this.host = '​https://media.lottoland.com';
-        this.path = '​/api/drawings/euroJackpot';
+        this.host = 'https://media.lottoland.com';
+        this.path = '/api/drawings/euroJackpot';
     }
 
-    public async get(term: string): Promise<any> {
-        const data = await this.getData(term);
+    public async get(date: string): Promise<any> {
+        const data = await this.getData(date);
         return data;
     }
 
-    private async getData(term: string): Promise<any[]> {
-        const response = await fetch(this.getUrl(term));
-        const json = await response.json();
-        return json.items;
+    private async getData(date: string): Promise<any> {
+        const response = await fetch(this.getUrl(date));
+        return response.json();
     }
 
     private getUrl(date: string): string {
-        return `${this.host}${this.path}/${date}`;
+        return `${this.host}${this.path}${date ? `/${date}` : ''}`;
     }
 }
 

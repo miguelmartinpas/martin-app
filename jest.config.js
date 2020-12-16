@@ -7,8 +7,8 @@ module.exports = {
         },
     },
     collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts', '!src/**/*.stories.tsx', '!src/index.ts'],
-    setupFiles: ['./config/jest/setupJest.ts'],
-    coveragePathIgnorePatterns: ['./src/*/*.types.{ts,tsx}'],
+    setupFiles: [],
+    coveragePathIgnorePatterns: ['./src/*/*.types.{ts,tsx}', './src/index.tsx'],
     coverageReporters: ['json', 'lcov', 'text-summary', 'clover'],
     coverageThreshold: {
         global: {
