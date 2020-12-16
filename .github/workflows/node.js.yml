@@ -14,9 +14,9 @@ jobs:
         strategy:
             matrix:
                 node-version: [10.x]
-            env:
-                DEFAULT_BRANCH: main
-                CI: true
+        env:
+            DEFAULT_BRANCH: main
+            CI: true
 
         steps:
             - uses: actions/checkout@v2
