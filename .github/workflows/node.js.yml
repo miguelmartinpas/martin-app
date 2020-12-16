@@ -1,0 +1,36 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+  branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+      env:
+        DEFAULT_BRANCH: main
+        CI: true
+
+      steps:
+        - uses: actions/checkout@v2
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+            with:
+              node-version: ${{ matrix.node-version }}
+        - run: npm ci
+        - run: npm run lint
+        - run: npm test
+        - run: npm run build
+        - uses: akhileshns/heroku-deploy@v3.7.8 # This is the action
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: "martin--app"
+            heroku_email: 'miguel.martinpastor@gmail.com'
+
