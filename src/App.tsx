@@ -1,19 +1,16 @@
-import React from "react";
-import "./App.styles.less";
+import React from 'react';
+import './App.styles.less';
 
-class App extends React.Component {
-  render() {
-    const value = "Showcase App!!!";
-    return (
-      <div className="main">
-        <input
-          value={value}
-          onChange={(event) => console.log("event", event.currentTarget.value)}
-        ></input>
-        Hello world
-      </div>
-    );
-  }
+class App extends React.PureComponent {
+    public render(): React.ReactElement {
+        const value = 'Showcase App!!!';
+        return (
+            <div className="main">
+                <input value={value} onChange={(event) => console.log('event', event.currentTarget.value)} />
+                Hello world
+            </div>
+        );
+    }
 }
 
 export default App;
