@@ -1,0 +1,19 @@
+{
+  "name": "martin-app",
+  "version": "1.0.0",
+  "description": "Showcase application ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miguelmartinpas/martin-app.git"
+  },
+  "author": "Miguel Martín",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miguelmartinpas/martin-app/issues"
+  },
+  "homepage": "https://github.com/miguelmartinpas/martin-app#readme"
+}
