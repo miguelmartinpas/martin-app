@@ -18,18 +18,13 @@ jobs:
                 DEFAULT_BRANCH: main
                 CI: true
 
-            steps:
-                - uses: actions/checkout@v2
-                - name: Use Node.js ${{ matrix.node-version }}
-                  uses: actions/setup-node@v1
-                  with:
-                      node-version: ${{ matrix.node-version }}
-                - run: npm ci
-                - run: npm run lint
-                - run: npm test
-                - run: npm run build
-                - uses: akhileshns/heroku-deploy@v3.7.8
-                  with:
-                      heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-                      heroku_app_name: 'martin--app'
-                      heroku_email: 'miguel.martinpastor@gmail.com'
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: npm ci
+            - run: npm run lint
+            - run: npm test
+            - run: npm run build
