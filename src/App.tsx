@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.less";
+import "./App.styles.less";
 
 class App extends React.Component {
   render() {
@@ -15,4 +15,5 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;
