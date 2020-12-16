@@ -10,7 +10,7 @@ module.exports = (env) => {
 
   return {
     context: __dirname,
-    entry: "./src/index.js",
+    entry: "./src/index.tsx",
     devtool: isProd ? false : "inline-source-map",
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -25,11 +25,14 @@ module.exports = (env) => {
       hot: true,
       port: 3000,
     },
+    resolve: {
+      extensions: [".ts", ".js", ".json", ".tsx", ".jsx"],
+    },
     module: {
       rules: [
         // JavaScript babel compile
         {
-          test: /\.(js|jsx)$/,
+          test: /\.(js|jsx|ts|tsx)$/,
           exclude: /node_modules/,
           use: "babel-loader",
         },
