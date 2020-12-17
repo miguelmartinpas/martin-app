@@ -31,6 +31,7 @@ module.exports = (env) => {
             port: env.PORT || 8080,
             proxy: {
                 '/lotto': {
+                    context: ['/martin-app'],
                     target: 'https://martin-proxy.herokuapp.com',
                     changeOrigin: true,
                     headers: {
@@ -42,6 +43,19 @@ module.exports = (env) => {
                     // pathRewrite: function (path, req) {
                     //     return path.replace('/lotto', '/lotto');
                     // },
+                },
+                '/martin-app/lotto': {
+                    target: 'https://martin-proxy.herokuapp.com',
+                    changeOrigin: true,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+                        'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
+                        'Access-Control-Allow-Credentials': true,
+                    },
+                    pathRewrite: function (path, req) {
+                        return path.replace('/martin-app/lotto', '/lotto');
+                    },
                 },
             },
         },
