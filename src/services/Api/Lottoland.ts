@@ -2,8 +2,11 @@
 // export const HOST = 'https://www.lottoland.com';
 // export const PATH = '/api/drawings/euroJackpot';
 export const CORS_ANYWHERE_URL = '';
-export const HOST = '';
+export const HOST = 'https://martin-proxy.herokuapp.com';
 export const PATH = '/lotto';
+// export const CORS_ANYWHERE_URL = '';
+// export const HOST = '';
+// export const PATH = '/lotto';
 
 class Lottoland {
     private host: string;
