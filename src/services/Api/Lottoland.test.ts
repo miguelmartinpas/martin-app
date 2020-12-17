@@ -1,6 +1,6 @@
-import Lottoland, { HOST, PATH, CORS_ANYWHERE_URL } from './Lottoland';
+import Lottoland, { HOST, PATH } from './Lottoland';
 
-const mockFech = jest.fn((url) =>
+const mockFech = jest.fn(() =>
     Promise.resolve({
         json: () => Promise.resolve({ foo: 'bar' }),
     })
@@ -31,11 +31,11 @@ describe('Lottoland Service', () => {
 
         it.each`
             date         | url
-            ${'bar'}     | ${`${CORS_ANYWHERE_URL}${HOST}${PATH}/bar`}
-            ${'foo'}     | ${`${CORS_ANYWHERE_URL}${HOST}${PATH}/foo`}
-            ${undefined} | ${`${CORS_ANYWHERE_URL}${HOST}${PATH}`}
+            ${'bar'}     | ${`${HOST}${PATH}/bar`}
+            ${'foo'}     | ${`${HOST}${PATH}/foo`}
+            ${undefined} | ${`${HOST}${PATH}`}
         `('WHEN date is $date THEN should return $url url', async ({ date, url }) => {
-            const response = await lottolandService.get(date);
+            await lottolandService.get(date);
             await expect(mockFech).toHaveBeenCalledWith(url);
         });
     });

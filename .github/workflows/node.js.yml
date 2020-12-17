@@ -28,11 +28,6 @@ jobs:
             #- run: npm run lint
             - run: npm test
             - run: npm run build
-            - uses: akhileshns/heroku-deploy@v3.7.8 # This is the action
-              with:
-                  heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-                  heroku_app_name: 'martin--app' #Must be unique in Heroku
-                  heroku_email: 'miguel.martinpastor@gmail.com'
             - name: Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@3.7.1
               with:
