@@ -25,11 +25,11 @@ module.exports = (env) => {
             hot: !isProd,
             port: 8080,
             proxy: {
-                '/lottoproxy': {
+                '/martin-app/lottoproxy': {
                     target: 'https://www.lottoland.com',
                     changeOrigin: true,
                     pathRewrite: function (path, req) {
-                        return path.replace('/lottoproxy', '/api/drawings/euroJackpot');
+                        return path.replace('/martin-app/lottoproxy', '/api/drawings/euroJackpot');
                     },
                 },
             },
