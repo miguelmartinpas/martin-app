@@ -1,5 +1,4 @@
-// export const HOST = 'https://martin-proxy.herokuapp.com';
-// export const PATH = '/lotto';
+export const CORS_ANYWHERE_URL = 'https://cors-anywhere.herokuapp.com/';
 export const HOST = 'https://www.lottoland.com';
 export const PATH = '/api/drawings/euroJackpot';
 
@@ -10,7 +9,7 @@ class Lottoland {
 
     public constructor() {
         this.host = HOST;
-        this.path = '/lotto';
+        this.path = PATH;
     }
 
     public async get(date: string): Promise<any> {
@@ -28,7 +27,7 @@ class Lottoland {
     }
 
     private corsAnywhere = (url: string) => {
-        return `https://cors-anywhere.herokuapp.com/${url}`;
+        return `${CORS_ANYWHERE_URL}${url}`;
     };
 }
 
