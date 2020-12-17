@@ -1,12 +1,13 @@
+export const HOST = 'https://martin-proxy.herokuapp.com';
+export const PATH = '/lotto';
+
 class Lottoland {
     private host: string;
 
     private path: string;
 
     public constructor() {
-        // this.host = 'https://media.lottoland.com';
-        // this.path = '/api/drawings/euroJackpot';
-        this.host = 'https://martin-proxy.herokuapp.com';
+        this.host = HOST;
         this.path = '/lotto';
     }
 
