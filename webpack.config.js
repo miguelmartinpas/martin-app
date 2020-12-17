@@ -22,11 +22,13 @@ module.exports = (env) => {
                 'Access-Control-Allow-Origin': '*',
                 https: true,
             },
+            host: env.HOST || '0.0.0.0',
             historyApiFallback: true,
             contentBase: path.resolve(__dirname, 'dist'),
             open: false,
             compress: true,
             hot: !isProd,
+            port: env.PORT || 8080,
             proxy: {
                 '/lotto': {
                     target: 'https://martin-proxy.herokuapp.com',
