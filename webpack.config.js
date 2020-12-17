@@ -25,26 +25,6 @@ module.exports = (env) => {
             compress: true,
             hot: !isProd,
             port: env.PORT || 8080,
-            proxy: {
-                '/lottoproxy': {
-                    target: 'https://www.lottoland.com',
-                    changeOrigin: true,
-                    pathRewrite: function (path, req) {
-                        console.log('proxy 1...', path);
-                        console.log('redirect 1...', path.replace('/lottoproxy', '/api/drawings/euroJackpot'));
-                        return path.replace('/lottoproxy', '/api/drawings/euroJackpot');
-                    },
-                },
-                lottoproxyalt: {
-                    target: 'https://www.lottoland.com',
-                    changeOrigin: true,
-                    pathRewrite: function (path, req) {
-                        console.log('proxy 2...', path);
-                        console.log('redirect 2...', path.replace('lottoproxyalt', 'api/drawings/euroJackpot'));
-                        return path.replace('lottoproxyalt', 'api/drawings/euroJackpot');
-                    },
-                },
-            },
         },
         resolve: {
             extensions: ['.ts', '.js', '.json', '.tsx', '.jsx'],

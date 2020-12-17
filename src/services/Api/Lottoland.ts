@@ -4,8 +4,10 @@ class Lottoland {
     private path: string;
 
     public constructor() {
-        this.host = 'https://media.lottoland.com';
-        this.path = '/api/drawings/euroJackpot';
+        // this.host = 'https://media.lottoland.com';
+        // this.path = '/api/drawings/euroJackpot';
+        this.host = 'https://martin-proxy.herokuapp.com';
+        this.path = '/lotto';
     }
 
     public async get(date: string): Promise<any> {
