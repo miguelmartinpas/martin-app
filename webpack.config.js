@@ -18,6 +18,7 @@ module.exports = (env) => {
             publicPath: './',
         },
         devServer: {
+            host: '0.0.0.0',
             historyApiFallback: true,
             contentBase: path.resolve(__dirname, 'dist'),
             open: false,
@@ -29,7 +30,18 @@ module.exports = (env) => {
                     target: 'https://www.lottoland.com',
                     changeOrigin: true,
                     pathRewrite: function (path, req) {
+                        console.log('proxy...', path);
+                        console.log('redirect...', path.replace('/lottoproxy', '/api/drawings/euroJackpot'));
                         return path.replace('/lottoproxy', '/api/drawings/euroJackpot');
+                    },
+                },
+                '/martin-app/lottoproxy': {
+                    target: 'https://www.lottoland.com',
+                    changeOrigin: true,
+                    pathRewrite: function (path, req) {
+                        console.log('proxy...', path);
+                        console.log('redirect...', path.replace('/martin-app/lottoproxy', '/api/drawings/euroJackpot'));
+                        return path.replace('/martin-app/lottoproxy', '/api/drawings/euroJackpot');
                     },
                 },
             },
