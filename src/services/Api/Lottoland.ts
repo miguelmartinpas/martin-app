@@ -1,5 +1,7 @@
-export const HOST = 'https://martin-proxy.herokuapp.com';
-export const PATH = '/lotto';
+// export const HOST = 'https://martin-proxy.herokuapp.com';
+// export const PATH = '/lotto';
+export const HOST = 'https://www.lottoland.com';
+export const PATH = '/api/drawings/euroJackpot';
 
 class Lottoland {
     private host: string;
@@ -22,8 +24,12 @@ class Lottoland {
     }
 
     private getUrl(date: string): string {
-        return `${this.host}${this.path}${date ? `/${date}` : ''}`;
+        return this.corsAnywhere(`${this.host}${this.path}${date ? `/${date}` : ''}`);
     }
+
+    private corsAnywhere = (url: string) => {
+        return `https://cors-anywhere.herokuapp.com/${url}`;
+    };
 }
 
 export default Lottoland;
