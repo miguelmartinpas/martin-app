@@ -18,7 +18,7 @@ module.exports = (env) => {
             publicPath: './',
         },
         devServer: {
-            host: '0.0.0.0',
+            host: env.HOST || '0.0.0.0',
             historyApiFallback: true,
             contentBase: path.resolve(__dirname, 'dist'),
             open: false,
@@ -30,18 +30,18 @@ module.exports = (env) => {
                     target: 'https://www.lottoland.com',
                     changeOrigin: true,
                     pathRewrite: function (path, req) {
-                        console.log('proxy...', path);
-                        console.log('redirect...', path.replace('/lottoproxy', '/api/drawings/euroJackpot'));
+                        console.log('proxy 1...', path);
+                        console.log('redirect 1...', path.replace('/lottoproxy', '/api/drawings/euroJackpot'));
                         return path.replace('/lottoproxy', '/api/drawings/euroJackpot');
                     },
                 },
-                '/martin-app/lottoproxy': {
+                lottoproxyalt: {
                     target: 'https://www.lottoland.com',
                     changeOrigin: true,
                     pathRewrite: function (path, req) {
-                        console.log('proxy...', path);
-                        console.log('redirect...', path.replace('/martin-app/lottoproxy', '/api/drawings/euroJackpot'));
-                        return path.replace('/martin-app/lottoproxy', '/api/drawings/euroJackpot');
+                        console.log('proxy 2...', path);
+                        console.log('redirect 2...', path.replace('lottoproxyalt', 'api/drawings/euroJackpot'));
+                        return path.replace('lottoproxyalt', 'api/drawings/euroJackpot');
                     },
                 },
             },
