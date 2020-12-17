@@ -30,7 +30,7 @@ module.exports = (env) => {
             hot: !isProd,
             port: env.PORT || 8080,
             proxy: {
-                lotto: {
+                '/lotto': {
                     target: 'https://martin-proxy.herokuapp.com',
                     changeOrigin: true,
                     headers: {
