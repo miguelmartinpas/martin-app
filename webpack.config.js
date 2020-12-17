@@ -29,7 +29,7 @@ module.exports = (env) => {
                     target: 'https://www.lottoland.com',
                     changeOrigin: true,
                     pathRewrite: function (path, req) {
-                        return path.replace('/app', '/api/drawings/euroJackpot');
+                        return path.replace('/lottoproxy', '/api/drawings/euroJackpot');
                     },
                 },
             },
