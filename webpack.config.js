@@ -24,6 +24,15 @@ module.exports = (env) => {
             compress: true,
             hot: !isProd,
             port: 8080,
+            proxy: {
+                '/lottoproxy': {
+                    target: 'https://www.lottoland.com',
+                    changeOrigin: true,
+                    pathRewrite: function (path, req) {
+                        return path.replace('/app', '/api/drawings/euroJackpot');
+                    },
+                },
+            },
         },
         resolve: {
             extensions: ['.ts', '.js', '.json', '.tsx', '.jsx'],
