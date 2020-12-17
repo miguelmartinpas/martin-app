@@ -29,7 +29,7 @@ class App extends React.Component<Props, State> {
 
     public render(): React.ReactElement {
         const value = 'Showcase App!!!';
-        const lottoland = new Lottoland();
+        const { data } = this.state;
         return (
             <div className="main">
                 <input
@@ -39,7 +39,7 @@ class App extends React.Component<Props, State> {
                     }}
                 />
                 Hello world
-                <div>{JSON.stringify(this.state.data)}</div>
+                <div>{JSON.stringify(data)}</div>
             </div>
         );
     }
