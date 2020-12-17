@@ -18,6 +18,10 @@ module.exports = (env) => {
             publicPath: './',
         },
         devServer: {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                https: true,
+            },
             host: env.HOST || '0.0.0.0',
             historyApiFallback: true,
             contentBase: path.resolve(__dirname, 'dist'),
@@ -25,6 +29,21 @@ module.exports = (env) => {
             compress: true,
             hot: !isProd,
             port: env.PORT || 8080,
+            proxy: {
+                '/lotto': {
+                    target: 'https://martin-proxy.herokuapp.com',
+                    changeOrigin: true,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+                        'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
+                        'Access-Control-Allow-Credentials': true,
+                    },
+                    // pathRewrite: function (path, req) {
+                    //     return path.replace('/lotto', '/lotto');
+                    // },
+                },
+            },
         },
         resolve: {
             extensions: ['.ts', '.js', '.json', '.tsx', '.jsx'],
