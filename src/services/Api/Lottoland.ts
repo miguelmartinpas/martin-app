@@ -1,7 +1,7 @@
-export const CORS_ANYWHERE_URL = 'https://cors-anywhere.herokuapp.com/';
+// export const CORS_ANYWHERE_URL = 'https://cors-anywhere.herokuapp.com/';
 // export const HOST = 'https://www.lottoland.com';
 // export const PATH = '/api/drawings/euroJackpot';
-
+export const CORS_ANYWHERE_URL = '';
 export const HOST = 'https://martin-proxy.herokuapp.com';
 export const PATH = '/lotto';
 
