@@ -27,7 +27,9 @@ class Dashboard extends React.Component<Props, State> {
         };
         this.lottolandService = new Lottoland();
         this.lottodateService = new LottoDate();
-        this.dates = this.lottodateService.getFromToday().map((date) => ({ label: date, value: date }));
+        this.dates = this.lottodateService
+            .getFromToday()
+            .map((date) => ({ label: this.lottodateService.simpleParserDate(date), value: date }));
     }
 
     public componentDidMount(): void {

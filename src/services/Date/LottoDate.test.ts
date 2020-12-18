@@ -22,5 +22,10 @@ describe('Lottoland Service', () => {
             expect(response[0]).toMatch(/[0-9]{8}/);
             expect(response.length).toBe(NUM_ITEMS);
         });
+
+        it(`WHEN call to simpleParserDate with 20190212 THEN it should return 12-02-2019`, () => {
+            const response = lottodateService.simpleParserDate('20190212');
+            expect(response).toBe('12-02-2019');
+        });
     });
 });

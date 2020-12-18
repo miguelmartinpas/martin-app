@@ -12,6 +12,11 @@ class LottoDate {
         return this.getPreviusResult(lastDate);
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    public simpleParserDate(date: string) {
+        return `${date.substr(6, 2)}-${date.substr(4, 2)}-${date.substr(0, 4)}`;
+    }
+
     // Get date for last friday from today
     // eslint-disable-next-line class-methods-use-this
     private getDateLastResult() {
