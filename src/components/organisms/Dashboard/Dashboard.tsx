@@ -3,41 +3,49 @@ import { Dropdown, DynamicTable } from 'martin-lib';
 import 'martin-lib/dist/styles.css';
 import './Dashboard.styles.less';
 import Lottoland from '../../../services/Api/Lottoland';
+import LottoDate from '../../../services/Date/LottoDate';
 
 interface Props {}
 
 interface State {
     data: any;
+    selectedDate: string;
 }
 
 class Dashboard extends React.Component<Props, State> {
     private lottolandService: Lottoland;
 
+    private lottodateService: LottoDate;
+
+    private dates: any;
+
     public constructor(props: Props) {
         super(props);
         this.state = {
             data: {},
+            selectedDate: '',
         };
         this.lottolandService = new Lottoland();
+        this.lottodateService = new LottoDate();
+        this.dates = this.lottodateService.getFromToday().map((date) => ({ label: date, value: date }));
     }
 
     public componentDidMount(): void {
         this.lottolandService.get('20200904').then((data: any) => {
-            this.setState({ data });
-            console.log('data:', data);
+            this.setState({ data }, () => console.log('state', this.state));
+        });
+    }
+
+    public onChangeHandle(value: string) {
+        this.setState({ selectedDate: value });
+        this.lottolandService.get(value).then((data: any) => {
+            this.setState({ data }, () => console.log('state', this.state));
         });
     }
 
     public render(): React.ReactElement {
-        const { data } = this.state;
+        const { data, selectedDate } = this.state;
 
-        const options = [
-            { label: 'Labe one', value: 'one' },
-            { label: 'Labe two', value: 'two' },
-            { label: 'Labe three', value: 'three' },
-        ];
-        const selected = 'three';
-        const onChange = (text: string) => console.log('>>', text);
         const disabled = false;
 
         const headers = ['a a a a a a', 'b b b b b b b b', 'c c c c c c c c ', 'd d d d d d d d '];
@@ -46,7 +54,12 @@ class Dashboard extends React.Component<Props, State> {
         return (
             <div className="dashboard">
                 <div className="dashboard-header">
-                    <Dropdown options={options} selected={selected} onChange={onChange} disabled={disabled} />
+                    <Dropdown
+                        options={this.dates}
+                        selected={selectedDate}
+                        onChange={(value: string) => this.onChangeHandle(value)}
+                        disabled={disabled}
+                    />
                 </div>
                 <div className="dashboard-body">
                     <DynamicTable headers={headers} items={items} />
