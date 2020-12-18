@@ -6,7 +6,7 @@ const mockFech: any = jest.fn(() =>
     })
 );
 
-const mockFechWithError: any = jest.fn(() => Promise.reject({}));
+const mockFechWithError: any = jest.fn(() => Promise.reject(new Error('Something bad happened')));
 
 describe('Lottoland Service', () => {
     let lottolandService: Lottoland;

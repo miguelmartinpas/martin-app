@@ -31,10 +31,12 @@ class Lottoland {
         }
     }
 
+    // eslint-disable-next-line class-methods-use-this
     private parseErrorResponse(errorMessage: string) {
         return { error: true, message: errorMessage };
     }
 
+    // eslint-disable-next-line class-methods-use-this
     private parseSuccessResponse(data: string) {
         return { success: true, data };
     }
