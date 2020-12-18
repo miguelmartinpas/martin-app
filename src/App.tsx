@@ -23,7 +23,6 @@ class App extends React.Component<Props, State> {
     public componentDidMount(): void {
         this.lottolandService.get('20200904').then((data: any) => {
             this.setState({ data });
-            console.log('data', data);
         });
     }
 

@@ -12,13 +12,31 @@ class Lottoland {
     }
 
     public async get(date: string): Promise<any> {
-        const data = await this.getData(date);
-        return data;
+        let response;
+        try {
+            const data = await this.fetchData(date);
+            response = this.parseSuccessResponse(data);
+        } catch (error) {
+            response = this.parseErrorResponse(error.message);
+        }
+        return response;
     }
 
-    private async getData(date: string): Promise<any> {
-        const response = await fetch(this.getUrl(date));
-        return response.json();
+    private async fetchData(date: string): Promise<any> {
+        try {
+            const response = await fetch(this.getUrl(date));
+            return response.json();
+        } catch (error) {
+            throw new Error('Error on fetchData');
+        }
+    }
+
+    private parseErrorResponse(errorMessage: string) {
+        return { error: true, message: errorMessage };
+    }
+
+    private parseSuccessResponse(data: string) {
+        return { success: true, data };
     }
 
     private getUrl(date: string): string {
