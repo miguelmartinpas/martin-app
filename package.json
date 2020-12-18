@@ -9,8 +9,8 @@
         "build": "webpack --mode production --env production --config webpack.config.js",
         "format": "prettier --write src/**/*.ts{,x}",
         "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
-        "test": "jest --coverage=false --detectOpenHandles",
-        "test:coverage": "jest --coverage=true --detectOpenHandles",
+        "test": "jest --coverage=false --verbose --detectOpenHandles",
+        "test:coverage": "jest --coverage=true --verbose --detectOpenHandles",
         "test:watch": "jest --watch --coverage=false --detectOpenHandles",
         "test:debug": "jest -o --watch --coverage=false --detectOpenHandles"
     },
@@ -25,6 +25,7 @@
     },
     "homepage": "https://github.com/miguelmartinpas/martin-app#readme",
     "dependencies": {
+        "martin-lib": "0.0.3",
         "react": "^17.0.1",
         "react-dom": "^17.0.1"
     },
