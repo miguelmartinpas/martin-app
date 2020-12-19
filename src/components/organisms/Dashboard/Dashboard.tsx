@@ -28,7 +28,7 @@ class Dashboard extends React.Component<Props, State> {
         this.state = {
             loading: false,
             error: false,
-            message: '',
+            message: 'Empty. Select an option in Dropdow',
             data: [],
             selectedDate: '',
         };
@@ -40,15 +40,13 @@ class Dashboard extends React.Component<Props, State> {
     public onChangeHandle(value: string): void {
         this.setState({ selectedDate: value, loading: true });
         this.lottolandService.get(value).then((response: any) => {
-            const { success, data } = response;
-            if (success) {
-                this.setState({ data, loading: false }, () => console.log('state och', this.state));
-            }
+            const { success, data, error, message } = response;
+            this.setState({ data: (success && data) || [], loading: false, message: error && message });
         });
     }
 
     public render(): React.ReactElement {
-        const { data, selectedDate, loading } = this.state;
+        const { data, selectedDate, loading, message } = this.state;
 
         return (
             <div className="dashboard">
@@ -64,7 +62,7 @@ class Dashboard extends React.Component<Props, State> {
                     />
                 </div>
                 <div className="dashboard-body">
-                    <DynamicTable headers={DataParsers.getDataKeys()} items={data} />
+                    <DynamicTable headers={DataParsers.getDataKeys()} items={data} message={message} />
                 </div>
             </div>
         );
