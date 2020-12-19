@@ -10,7 +10,6 @@ interface Props {}
 
 interface State {
     loading: boolean;
-    error: boolean;
     message: string;
     data: any[];
     selectedDate: string;
@@ -27,7 +26,6 @@ class Dashboard extends React.Component<Props, State> {
         super(props);
         this.state = {
             loading: false,
-            error: false,
             message: 'Empty. Select an option in Dropdow',
             data: [],
             selectedDate: '',

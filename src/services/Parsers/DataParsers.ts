@@ -21,6 +21,10 @@ class DataParsers {
         return DataParsers.keys;
     }
 
+    public static getNormalizeMatch(match: string): string {
+        return DataParsers.matchMap[match];
+    }
+
     public static getParseData(data: any): any {
         const { odds }: any = data?.last[0];
         return Object.keys(odds)
@@ -37,10 +41,6 @@ class DataParsers {
                     prize: DataParsers.getCurrency(prize),
                 };
             });
-    }
-
-    public static getNormalizeMatch(match: string): string {
-        return DataParsers.matchMap[match];
     }
 
     public static getNumberFormat(numberToFormat: number, options: any = {}): string {

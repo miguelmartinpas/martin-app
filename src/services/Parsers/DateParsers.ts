@@ -1,13 +1,13 @@
 class DateParsers {
+    public static simpleParseDate(date: string): string {
+        return `${date.substr(6, 2)}-${date.substr(4, 2)}-${date.substr(0, 4)}`;
+    }
+
     public static parseDate(listOfDates: string[]): any[] {
         return listOfDates.map((date: string) => ({
             value: date,
             label: DateParsers.simpleParseDate(date),
         }));
-    }
-
-    public static simpleParseDate(date: string): string {
-        return `${date.substr(6, 2)}-${date.substr(4, 2)}-${date.substr(0, 4)}`;
     }
 
     // Format a Date object
