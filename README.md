@@ -2,7 +2,7 @@
 
 Showcase App with React
 
-# setup
+# Setup
 
 Clone project
 
@@ -24,9 +24,9 @@ Run with prod environment
 
 # Deploy
 
-It uses github workflow to deploy a publish package in npmjs. Building with rollup librarie
-
 <code>npm run build</code>
+
+dist folder will contain code ready to be used
 
 # Test
 
