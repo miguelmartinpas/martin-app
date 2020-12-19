@@ -1,3 +1,5 @@
+import DataParsers from '../Parsers/DataParsers';
+
 export const HOST = 'https://martin-proxy.herokuapp.com';
 export const PATH = '/lotto';
 
@@ -15,9 +17,9 @@ class Lottoland {
         let response;
         try {
             const data = await this.fetchData(date);
-            response = this.parseSuccessResponse(data);
+            response = this.successResponse(data);
         } catch (error) {
-            response = this.parseErrorResponse(error.message);
+            response = this.errorResponse(error.message);
         }
         return response;
     }
@@ -32,13 +34,13 @@ class Lottoland {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    private parseErrorResponse(errorMessage: string) {
+    private errorResponse(errorMessage: string) {
         return { error: true, message: errorMessage };
     }
 
     // eslint-disable-next-line class-methods-use-this
-    private parseSuccessResponse(data: string) {
-        return { success: true, data };
+    private successResponse(data: string) {
+        return { success: true, data: DataParsers.getParseData(data) };
     }
 
     private getUrl(date: string): string {

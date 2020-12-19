@@ -1,14 +1,18 @@
 import React from 'react';
-import { Dropdown, DynamicTable } from 'martin-lib';
+import { Loading, Dropdown, DynamicTable } from 'martin-lib';
 import 'martin-lib/dist/styles.css';
 import './Dashboard.styles.less';
 import Lottoland from '../../../services/Api/Lottoland';
 import LottoDate from '../../../services/Date/LottoDate';
+import DataParsers from '../../../services/Parsers/DataParsers';
 
 interface Props {}
 
 interface State {
-    data: any;
+    loading: boolean;
+    error: boolean;
+    message: string;
+    data: any[];
     selectedDate: string;
 }
 
@@ -17,54 +21,50 @@ class Dashboard extends React.Component<Props, State> {
 
     private lottodateService: LottoDate;
 
-    private dates: any;
+    private datesForDropdown: any[];
 
     public constructor(props: Props) {
         super(props);
         this.state = {
-            data: {},
+            loading: false,
+            error: false,
+            message: '',
+            data: [],
             selectedDate: '',
         };
         this.lottolandService = new Lottoland();
         this.lottodateService = new LottoDate();
-        this.dates = this.lottodateService
-            .getFromToday()
-            .map((date) => ({ label: this.lottodateService.simpleParserDate(date), value: date }));
+        this.datesForDropdown = this.lottodateService.getFromTodayParsed();
     }
 
-    public componentDidMount(): void {
-        this.lottolandService.get('20200904').then((data: any) => {
-            this.setState({ data }, () => console.log('state', this.state));
-        });
-    }
-
-    public onChangeHandle(value: string) {
-        this.setState({ selectedDate: value });
-        this.lottolandService.get(value).then((data: any) => {
-            this.setState({ data }, () => console.log('state', this.state));
+    public onChangeHandle(value: string): void {
+        this.setState({ selectedDate: value, loading: true });
+        this.lottolandService.get(value).then((response: any) => {
+            const { success, data } = response;
+            if (success) {
+                this.setState({ data, loading: false }, () => console.log('state och', this.state));
+            }
         });
     }
 
     public render(): React.ReactElement {
-        const { data, selectedDate } = this.state;
-
-        const disabled = false;
-
-        const headers = ['a a a a a a', 'b b b b b b b b', 'c c c c c c c c ', 'd d d d d d d d '];
-        const items = [{ a: '1 1 1 1 1 1 1 ', b: '2 2 2 2  2 2 2 ', c: '3 3 3 3  3', d: '4 4 4 4 4 4' }];
+        const { data, selectedDate, loading } = this.state;
 
         return (
             <div className="dashboard">
                 <div className="dashboard-header">
+                    <div className="dashboard-loading">
+                        <Loading width={15} hidden={!loading} />
+                    </div>
                     <Dropdown
-                        options={this.dates}
+                        options={this.datesForDropdown}
                         selected={selectedDate}
                         onChange={(value: string) => this.onChangeHandle(value)}
-                        disabled={disabled}
+                        disabled={loading}
                     />
                 </div>
                 <div className="dashboard-body">
-                    <DynamicTable headers={headers} items={items} />
+                    <DynamicTable headers={DataParsers.getDataKeys()} items={data} />
                 </div>
             </div>
         );

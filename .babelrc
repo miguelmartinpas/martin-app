@@ -1,15 +1,15 @@
 {
-  "presets": [
-    [
-      "@babel/env",
-      {
-        "targets": {
-          "node": "10"
-        }
-      }
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "node": "10"
+                }
+            }
+        ],
+        "@babel/react",
+        "@babel/typescript"
     ],
-    "@babel/react",
-    "@babel/typescript"
-  ],
-  "plugins": ["@babel/plugin-proposal-class-properties"]
+    "plugins": ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-optional-chaining"]
 }

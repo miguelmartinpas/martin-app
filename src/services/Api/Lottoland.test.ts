@@ -1,5 +1,12 @@
 import Lottoland, { HOST, PATH } from './Lottoland';
 
+const mockGetParserData = jest.fn();
+jest.mock('../Parsers/DataParsers', () => {
+    return {
+        getParseData: (data: any) => mockGetParserData(data),
+    };
+});
+
 const mockFech: any = jest.fn(() =>
     Promise.resolve({
         json: () => Promise.resolve({ foo: 'bar' }),
@@ -18,6 +25,7 @@ describe('Lottoland Service', () => {
     });
 
     afterEach(() => {
+        mockGetParserData.mockClear();
         jest.useRealTimers();
     });
 
@@ -27,7 +35,10 @@ describe('Lottoland Service', () => {
         });
 
         it('WHEN call to external API THEN it should return a correct value', async () => {
+            mockGetParserData.mockImplementation(() => ({ foo: 'bar' }));
             const response = await lottolandService.get('foo');
+
+            expect(mockGetParserData).toHaveBeenCalledWith({ foo: 'bar' });
             expect(response).toEqual({ success: true, data: { foo: 'bar' } });
         });
 
@@ -38,12 +49,14 @@ describe('Lottoland Service', () => {
             ${undefined} | ${`${HOST}${PATH}`}
         `('WHEN date is $date THEN should return $url url', async ({ date, url }) => {
             await lottolandService.get(date);
+
             expect(mockFech).toHaveBeenCalledWith(url);
         });
 
         it('WHEN call to external API and it fail THEN it should return an error', async () => {
             global.fetch = mockFechWithError;
             const response = await lottolandService.get('foo');
+
             expect(response).toEqual({ error: true, message: 'Error on fetchData' });
         });
     });
