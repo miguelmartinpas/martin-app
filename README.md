@@ -53,7 +53,7 @@ It runs UT with Jest and Enzyme
 
 <code>npm run test</code>
 
-##Coverage
+# Coverage
 
 <code>npm run test:coverage</code>
 
