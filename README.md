@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/miguelmartinpas/martin-app/badge.svg?branch=main)](https://coveralls.io/github/miguelmartinpas/martin-app?branch=main)
+
 # Overview
 
 Showcase App with React
@@ -37,6 +39,8 @@ It runs UT with Jest and Enzyme
 ##Coverage
 
 <code>npm run test:coverage</code>
+
+Coverage info in https://coveralls.io/github/miguelmartinpas/martin-app?branch=main
 
 # Lint & format
 

@@ -1,10 +1,12 @@
-import React from 'react';
-import { Loading, Dropdown, DynamicTable } from 'martin-lib';
-import 'martin-lib/dist/styles.css';
+import React, { Suspense, lazy } from 'react';
+import { Loading, Dropdown } from 'martin-lib';
+import 'martin-lib/lib/styles.css';
 import './Dashboard.styles.less';
 import Lottoland from '../../../services/Api/Lottoland';
 import LottoDate from '../../../services/Date/LottoDate';
 import DataParsers from '../../../services/Parsers/DataParsers';
+
+const LazyDynamicTable = lazy((): any => import('martin-lib/lib/DynamicTable'));
 
 interface Props {}
 
@@ -26,7 +28,7 @@ class Dashboard extends React.Component<Props, State> {
         super(props);
         this.state = {
             loading: false,
-            message: 'Empty. Select an option in Dropdow',
+            message: 'Empty. Select an option in Dropdow. First time, take more time (Heroku Idling)',
             data: [],
             selectedDate: '',
         };
@@ -43,25 +45,51 @@ class Dashboard extends React.Component<Props, State> {
         });
     }
 
-    public render(): React.ReactElement {
-        const { data, selectedDate, loading, message } = this.state;
+    public renderDropdown(): React.ReactElement {
+        const { selectedDate, loading } = this.state;
 
         return (
+            <div className="dashboard-header">
+                <div className="dashboard-loading">
+                    <Loading width={15} hidden={!loading} />
+                </div>
+                <Dropdown
+                    options={this.datesForDropdown}
+                    selected={selectedDate}
+                    onChange={(value: string) => this.onChangeHandle(value)}
+                    disabled={loading}
+                />
+            </div>
+        );
+    }
+
+    public renderDynamicTable(): React.ReactElement {
+        const { data, loading, message } = this.state;
+
+        return (
+            <div className="dashboard-body">
+                <Suspense
+                    fallback={
+                        <div>
+                            <Loading width={15} hidden={!loading} />
+                        </div>
+                    }
+                >
+                    {data.length ? (
+                        <LazyDynamicTable headers={DataParsers.getDataKeys()} items={data} />
+                    ) : (
+                        <div>{message}</div>
+                    )}
+                </Suspense>
+            </div>
+        );
+    }
+
+    public render(): React.ReactElement {
+        return (
             <div className="dashboard">
-                <div className="dashboard-header">
-                    <div className="dashboard-loading">
-                        <Loading width={15} hidden={!loading} />
-                    </div>
-                    <Dropdown
-                        options={this.datesForDropdown}
-                        selected={selectedDate}
-                        onChange={(value: string) => this.onChangeHandle(value)}
-                        disabled={loading}
-                    />
-                </div>
-                <div className="dashboard-body">
-                    <DynamicTable headers={DataParsers.getDataKeys()} items={data} message={message} />
-                </div>
+                {this.renderDropdown()}
+                {this.renderDynamicTable()}
             </div>
         );
     }

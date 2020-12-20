@@ -12,7 +12,8 @@
         "test": "jest --coverage=false --verbose --detectOpenHandles",
         "test:coverage": "jest --coverage=true --verbose --detectOpenHandles",
         "test:watch": "jest --watch --coverage=false --detectOpenHandles",
-        "test:debug": "jest -o --watch --coverage=false --detectOpenHandles"
+        "test:debug": "jest -o --watch --coverage=false --detectOpenHandles",
+        "coveralls": "coveralls < coverage/lcov.info"
     },
     "repository": {
         "type": "git",
@@ -25,7 +26,7 @@
     },
     "homepage": "https://github.com/miguelmartinpas/martin-app#readme",
     "dependencies": {
-        "martin-lib": "0.0.4",
+        "martin-lib": "0.0.5",
         "react": "^17.0.1",
         "react-dom": "^17.0.1"
     },
@@ -44,6 +45,7 @@
         "@typescript-eslint/parser": "^4.10.0",
         "@wojtekmaj/enzyme-adapter-react-17": "0.3.2",
         "babel-loader": "^8.2.2",
+        "coveralls": "^3.1.0",
         "css-loader": "^5.0.1",
         "enzyme": "3.11.0",
         "enzyme-adapter-react-16": "1.15.5",

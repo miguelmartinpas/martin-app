@@ -26,7 +26,10 @@ jobs:
                   node-version: ${{ matrix.node-version }}
             - run: npm ci
             #- run: npm run lint
-            - run: npm test
+            - run: npm test:coverage
+            - run: npm run coveralls
+            env:
+                COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
             - run: npm run build
             - name: Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@3.7.1
