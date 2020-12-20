@@ -8,6 +8,9 @@ import DataParsers from '../../../services/Parsers/DataParsers';
 
 const LazyDynamicTable = lazy((): any => import('martin-lib/lib/DynamicTable'));
 
+const DEFAULT_MESSAGE =
+    'Empty. Select an option from the drop-down menu. It may take longer the first time (Heroku idle)';
+
 interface Props {}
 
 interface State {
@@ -28,7 +31,7 @@ class Dashboard extends React.Component<Props, State> {
         super(props);
         this.state = {
             loading: false,
-            message: 'Empty. Select an option in Dropdow. First time, take more time (Heroku Idling)',
+            message: DEFAULT_MESSAGE,
             data: [],
             selectedDate: '',
         };
@@ -41,7 +44,10 @@ class Dashboard extends React.Component<Props, State> {
         this.setState({ selectedDate: value, loading: true });
         this.lottolandService.get(value).then((response: any) => {
             const { success, data, error, message } = response;
-            this.setState({ data: (success && data) || [], loading: false, message: error && message });
+            const { selectedDate } = this.state;
+
+            const customMessage = selectedDate === '' ? DEFAULT_MESSAGE : error && message;
+            this.setState({ data: (success && data) || [], loading: false, message: customMessage });
         });
     }
 

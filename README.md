@@ -24,11 +24,28 @@ Run with prod environment
 
 <code>npm run start</code>
 
+ir will run in http://localhst:8080
+
 # Deploy
 
 <code>npm run build</code>
 
 dist folder will contain code ready to be used
+
+# Github workflow
+
+Github workflow is configure to run:
+
+-   lint
+-   test:coverage
+-   deploy coverage in coveralls (3 party librarie)
+-   deploy app in github pages
+
+check it on: https://github.com/miguelmartinpas/martin-app/actions
+
+# Github pages deploy
+
+github workflow deploy the app in https://miguelmartinpas.github.io/martin-app/
 
 # Test
 
@@ -40,7 +57,7 @@ It runs UT with Jest and Enzyme
 
 <code>npm run test:coverage</code>
 
-Coverage info in https://coveralls.io/github/miguelmartinpas/martin-app?branch=main
+You can check Coverage info in: https://coveralls.io/github/miguelmartinpas/martin-app?branch=main
 
 # Lint & format
 
